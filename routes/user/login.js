@@ -8,7 +8,7 @@ const saltRounds = 10;
 const register = Router.post('/register', async (req, res) => {
     const {username, password, avatar} = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    sql = 'INSERT INTO user (username, password, avatar) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO user (username, password, avatar) VALUES (?, ?, ?)';
     db.query(sql, [username, hashedPassword, avatar], (err, result) => {
         if(err) {
             console.log(err);
@@ -81,7 +81,6 @@ const add_following = Router.post('/follow', (req, res) => {
     db.query(sql, [user_id, following_id], (err, result) => {
         if(err) {
             console.log(err);
-            return;
         }
     });
     const sql1 = 'insert into user_follower (id, follower_id) values (?, ?)';

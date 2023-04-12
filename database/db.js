@@ -1,5 +1,4 @@
 var mysql = require('mysql2');
-// const config = require('config/db_config').db;
 
 const poll = mysql.createPool({
     host: 'localhost',

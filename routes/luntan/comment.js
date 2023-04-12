@@ -39,7 +39,6 @@ const delete_comment = Router.post('/delete', (req, res) => {
     });
 });
 
-// TODO get all comments for a post
 const get_comments_for_a_post = Router.get('/get', (req, res) => {
     // get post_id
     const id = req.query.id;
