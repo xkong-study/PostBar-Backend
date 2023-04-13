@@ -70,7 +70,6 @@ const login = Router.post('/login', async (req, res) => {
         res.status(200).json({
             code: 200,
             msg: 'User logged in successfully',
-            //从avatar的第5个字符开始截取
             avatar: result[0].avatar.substring(32),
             token,
         });
