@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyPaser.json());
 app.use(bodyPaser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(cors());
@@ -40,6 +40,7 @@ app.use('/tiezi', tieziRoter.delete_post);
 app.use('/comment', commentRouter.get_comments_for_a_post);
 app.use('/comment', commentRouter.add_comment);
 app.use('/comment', commentRouter.delete_comment);
+app.use('/comment', commentRouter.upload_image);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
