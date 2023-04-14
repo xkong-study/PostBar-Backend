@@ -10,10 +10,10 @@ const uploadPhoto = (req, res, next) => {
     let upload = multer({dest: dest_path}).single('photo');
     upload(req, res, (err) => {
         if(err) {
+            console.log(err);
             return res.json({
                 code: 500,
-                msg: 'Image upload through https failed',
-                err: err
+                msg: 'Image upload through https failed'
             })
         }else{
             next();
@@ -91,8 +91,9 @@ const get_following_tiezi = Router.get('/getfollowing', (req, res) => {
 
 const get_images_for_a_post = Router.get('/get_images', (req, res) => {
     const {post_id} = req.body;
-    const sql = 'SELECT * FROM tiezi_imgs WHERE tiezi_id = ?';
+    const sql = 'SELECT * FROM tiezi WHERE post_id = ?';
     db.query(sql, [post_id], async (err, result) => {
+        console.log(err);
         if(err) {
             return res.status(500).json({
                 code: 500,
@@ -102,7 +103,7 @@ const get_images_for_a_post = Router.get('/get_images', (req, res) => {
         const data = fs.readFileSync(result[0].filepath);
         const mimeType = mime.getType(result[0].filepath);
         res.set('Content-Type', mimeType);
-        res.send(data);
+        res.send();
     });
 });
 
