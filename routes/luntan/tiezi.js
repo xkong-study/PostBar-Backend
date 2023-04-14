@@ -109,7 +109,7 @@ const get_images_for_a_post = Router.get('/get_images', (req, res) => {
 
 const search_tiezi = Router.get('/search', (req, res) => {
     let {title} = req.body;
-    title += '%';
+    title = '%' + title + '%';
     const sql = 'SELECT * FROM tiezi WHERE title LIKE ?';
     db.query(sql, [title], (err, result) => {
         if(err) {
