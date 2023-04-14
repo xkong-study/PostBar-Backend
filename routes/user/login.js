@@ -76,6 +76,8 @@ const login = Router.post('/login', async (req, res) => {
     });
 });
 
+
+
 const add_following = Router.post('/follow', (req, res) => {
     const {user_id, following_id} = req.body;
     const sql = 'insert into user_following (id, following_id) values (?, ?)';

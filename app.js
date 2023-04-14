@@ -36,11 +36,11 @@ app.use('/tiezi', tieziRoter.get_all_tiezi);
 app.use('/tiezi', tieziRoter.get_following_tiezi);
 app.use('/tiezi', tieziRoter.add_post);
 app.use('/tiezi', tieziRoter.delete_post);
+app.use('/tiezi', tieziRoter.get_images_for_a_post);
 
 app.use('/comment', commentRouter.get_comments_for_a_post);
 app.use('/comment', commentRouter.add_comment);
 app.use('/comment', commentRouter.delete_comment);
-app.use('/comment', commentRouter.upload_image);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
