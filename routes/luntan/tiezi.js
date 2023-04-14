@@ -107,10 +107,28 @@ const get_images_for_a_post = Router.get('/get_images', (req, res) => {
     });
 });
 
+// 前端传给我title，我模糊查询，返回所有包含title的帖子
+const search_tiezi = Router.get('/search', (req, res) => {
+    const {title} = req.body;
+    const sql = 'SELECT * FROM tiezi WHERE title LIKE ?';
+    db.query(sql, [title], (err, result) => {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        res.json({
+            code: 200,
+            msg: 'search tiezi',
+            data: result
+        })
+    });
+});
+
 module.exports = {
     get_all_tiezi,
     get_following_tiezi,
     add_post,
     delete_post,
-    get_images_for_a_post
+    get_images_for_a_post,
+    search_tiezi
 }

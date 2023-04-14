@@ -37,6 +37,7 @@ app.use('/tiezi', tieziRoter.get_following_tiezi);
 app.use('/tiezi', tieziRoter.add_post);
 app.use('/tiezi', tieziRoter.delete_post);
 app.use('/tiezi', tieziRoter.get_images_for_a_post);
+app.use('/title', tieziRoter.search_tiezi);
 
 app.use('/comment', commentRouter.get_comments_for_a_post);
 app.use('/comment', commentRouter.add_comment);
