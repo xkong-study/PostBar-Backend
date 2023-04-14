@@ -103,7 +103,7 @@ const get_images_for_a_post = Router.get('/get_images', (req, res) => {
         const data = fs.readFileSync(result[0].filepath);
         const mimeType = mime.getType(result[0].filepath);
         res.set('Content-Type', mimeType);
-        res.send();
+        res.send(data);
     });
 });
 
