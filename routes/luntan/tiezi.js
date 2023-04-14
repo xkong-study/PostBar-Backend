@@ -107,7 +107,6 @@ const get_images_for_a_post = Router.get('/get_images', (req, res) => {
     });
 });
 
-// 前端传给我title，我模糊查询，返回所有包含title的帖子
 const search_tiezi = Router.get('/search', (req, res) => {
     let {title} = req.body;
     title += '%';
@@ -115,7 +114,10 @@ const search_tiezi = Router.get('/search', (req, res) => {
     db.query(sql, [title], (err, result) => {
         if(err) {
             console.log(err);
-            return;
+            return res.status(500).json({
+                code: 500,
+                msg: 'search tiezi error',
+            });
         }
         res.json({
             code: 200,
