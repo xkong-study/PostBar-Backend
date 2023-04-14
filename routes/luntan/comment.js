@@ -6,12 +6,12 @@ var fs = require('fs');
 var mime = require('mime');
 
 
-const add_comment = Router.post('/post', (req, res) => {
-    const params = req.body;
-    const post_id = params.post_id;
-    const author = params.author;
-    const content = params.content;
-    const time = params.time;
+const add_comment = Router.get('/post', (req, res) => {
+    console.log(req.query)
+    const post_id = req.query.post_id;
+    const author = req.query.author;
+    const content = req.query.content;
+    const time = req.query.time;
 
     sql = 'INSERT INTO comment (post_id, author, content, time) VALUES (?, ?, ?, ?)';
     db.query(sql, [post_id, author, content, time], (err) => {
@@ -44,7 +44,8 @@ const delete_comment = Router.post('/delete', (req, res) => {
 });
 
 const get_comments_for_a_post = Router.get('/get', (req, res) => {
-    const id = req.query.id;
+    const id = req.query.post_id;
+    console.log(req.query.post_id)
     sql = 'SELECT * FROM comment WHERE post_id = ?';
     db.query(sql, [id], (err, result) => {
         if(err) {
