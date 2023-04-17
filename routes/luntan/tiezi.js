@@ -41,9 +41,20 @@ const add_post = Router.post('/post', uploadPhoto, (req, res) => {
     })
 });
 
-const delete_post = Router.post('/delete', (req, res) => {
-    const params = req.body;
-    const id = params.id;
+const delete_post = Router.get('/delete', (req, res) => {
+    const id = req.query.post_id;
+    // delete all comments for this post
+    const sql1 = 'DELETE FROM comment WHERE post_id = ?';
+    db.query(sql1, [id], (err, result) => {
+        if(err) {
+            console.error(err);
+            return res.status(500).json({
+                code: 500,
+                msg: 'Delete comments error'
+            });
+        }
+    });
+
     const sql = 'DELETE FROM tiezi WHERE post_id = ?';
     db.query(sql, [id], (err, result) => {
         if(err) {

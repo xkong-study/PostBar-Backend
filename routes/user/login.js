@@ -5,8 +5,11 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
-const register = Router.post('/register', async (req, res) => {
-    const {username, password, avatar} = req.body;
+const register = Router.get('/register', async (req, res) => {
+    console.log(req.query)
+    const username = req.query.username;
+    const password = req.query.password;
+    const avatar = req.query.avatar;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const sql = 'INSERT INTO user (username, password, avatar) VALUES (?, ?, ?)';
     db.query(sql, [username, hashedPassword, avatar], (err, result) => {
