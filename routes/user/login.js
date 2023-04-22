@@ -5,8 +5,11 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
-const register = Router.post('/register', async (req, res) => {
-    const {username, password, avatar} = req.body;
+const register = Router.get('/register', async (req, res) => {
+    console.log(req.query)
+    const username = req.query.username;
+    const password = req.query.password;
+    const avatar = req.query.avatar;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const sql = 'INSERT INTO user (username, password, avatar) VALUES (?, ?, ?)';
     db.query(sql, [username, hashedPassword, avatar], (err, result) => {
@@ -99,10 +102,34 @@ const add_following = Router.post('/follow', (req, res) => {
     });
 });
 
+
+const change_userinfo = Router.get('/change', async (req, res) => {
+    const username = req.query.username;
+    const new_username = req.query.new_username;
+    const new_password = await bcrypt.hash(req.query.password, saltRounds);
+    const avatar = 'http://localhost:63342/midAutumn/'+req.query.avatar;
+    const sql = 'update user set username = ?, password = ?, avatar = ? where username = ?';
+    db.query(sql, [new_username, new_password, avatar, username], (err, result) => {
+        if(err) {
+            console.log(err);
+            return res.json({
+                code: 500,
+                msg: 'change user info failed'
+            })
+        }
+        res.json({
+            code: 200,
+            msg: 'change user info successfully',
+            avatar: avatar.substring(32),
+        })
+    });
+});
+
 module.exports = {
     register,
     login,
     authenticateToken,
-    add_following
+    add_following,
+    change_userinfo
 }
 

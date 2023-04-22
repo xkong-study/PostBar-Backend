@@ -31,6 +31,7 @@ app.use('/user', userRouter.register);
 app.use('/user', userRouter.login);
 app.use('/user', userRouter.authenticateToken);
 app.use('/user', userRouter.add_following);
+app.use('/user',userRouter.change_userinfo)
 
 app.use('/tiezi', tieziRoter.get_all_tiezi);
 app.use('/tiezi', tieziRoter.get_following_tiezi);
